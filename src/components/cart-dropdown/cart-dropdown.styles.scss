@@ -5,11 +5,16 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  border: 1px solid black;
+  border: 1px solid rgb(69, 72, 250);
   background-color: white;
   top: 90px;
   right: 40px;
   z-index: 5;
+  opacity: 0.8;
+  //
+  // animation-name: fadein;
+  // animation-duration: 1s;
+  // animation-iteration-count: 1;
 
   .cart-items {
     height: 240px;
@@ -20,5 +25,17 @@
 
   button {
     margin-top: auto;
+  }
+}
+
+// animation
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0.8;
+    transform: translateY(340px);
   }
 }
