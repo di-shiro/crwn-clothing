@@ -7,17 +7,27 @@ import { selectCollection } from '../../redux/shop/shop.selectors';
 
 import './collection.styles.scss';
 
-const CollectionPage = ({ collection }) => {
+const CollectionPage = ({ collection, match }) => {
+  console.log('■ match ~_~ >  ', match); // これはテスト！　後で消す！
   console.log(collection);
+  const { title, items } = collection;
   return (
     <div className='collection-page'>
-      <h2>COLLECTION PAGE</h2>
+      <h2 className='title'>{title}</h2>
+      <div className='items'>
+        {items.map(item => (
+          <CollectionItem key={item.id} item={item} />
+        ))}
+      </div>
     </div>
   );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  collection: selectCollection(ownProps.match.params.collectionId)(state)
-});
+const mapStateToProps = (state, ownProps) => {
+  console.log('■ 調査', ownProps.match.params);
+  return {
+    collection: selectCollection(ownProps.match.params.collectionId)(state)
+  };
+};
 
 export default connect(mapStateToProps)(CollectionPage);
