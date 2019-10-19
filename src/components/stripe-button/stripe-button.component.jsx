@@ -10,7 +10,6 @@ const StripeCheckoutButton = ({ price }) => {
     alert('Payment Successful');
   };
 
-  console.log('@@@ stripe test');
   return (
     <StripeCheckout
       label='Pay Now !!'
