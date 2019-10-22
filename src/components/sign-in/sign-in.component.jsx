@@ -37,6 +37,15 @@ class SignIn extends React.Component {
     // REF: オブジェクトのkeyに変数を使う。 https://qiita.com/kmagai/items/95481a3b9fd97e4616c9
   };
 
+  // TEST
+  componentDidMount() {
+    console.log('TEST : componentDidMount() in sign-in.component.jsx');
+  }
+  componentWillUnmount() {
+    console.log('TEST : componentWillUnmount() in sign-in.component.jsx');
+    alert('TEST : componentWillUnmount() in sign-in.component.jsx');
+  }
+
   render() {
     return (
       <div className='sign-in'>

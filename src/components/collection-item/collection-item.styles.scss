@@ -14,6 +14,9 @@
     margin-bottom: 5px;
   }
 
+  // 以下の custom-button は、この collection-item.component においてのスタイルを、
+  // <CustomButton> component に適用するための className である。
+  // <CustomButton className='custom-button'> として使用する
   .custom-button {
     width: 80%;
     opacity: 0.6;

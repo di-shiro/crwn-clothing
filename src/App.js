@@ -23,7 +23,11 @@ class App extends React.Component {
   componentDidMount() {
     const { setCurrentUser } = this.props;
 
+    console.log('TEST : componentDidMount() in App.js');
+
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      console.log('TEST : componentDidMount() in App.js: async userAuth => {}');
+
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
@@ -35,20 +39,27 @@ class App extends React.Component {
               ...snapShot.data()
             },
             () => {
-              console.log('async 2nd param : ', this.state);
+              console.log('async 2nd param : ', this.prop);
             }
           );
-          console.log(this.state);
+          console.log(this.prop);
         });
       } else {
         // this.setState({ currentUser: userAuth });
         setCurrentUser(userAuth);
       }
     });
+    console.log(
+      'TEST : componentDidMount() in App.js: END:async userAuth => {}'
+    );
   }
 
   componentWillUnmount() {
     this.unsubscribeFromAuth();
+    console.log(
+      'TEST : componentWillUnmount() in App.js, after unsubscribeFromAuth'
+    );
+    alert('TEST : componentWillUnmount() in App.js, after unsubscribeFromAuth');
   }
 
   render() {
