@@ -68,7 +68,7 @@ export const convertCollectionsSnapshotToMap = collections => {
   });
 
   // QuerySnapshotとして取得した直後なので、未だArray型のまま。 Object型への変換との比較のために残している。
-  console.log(transformedCollection);
+  console.log('</> sec17-lec162. WithSpinner HOC 2 : ', transformedCollection);
 
   return transformedCollection.reduce((accumulator, collection) => {
     accumulator[collection.title.toLowerCase()] = collection;
