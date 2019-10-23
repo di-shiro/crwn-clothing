@@ -43,7 +43,6 @@ class SignIn extends React.Component {
   }
   componentWillUnmount() {
     console.log('TEST : componentWillUnmount() in sign-in.component.jsx');
-    alert('TEST : componentWillUnmount() in sign-in.component.jsx');
   }
 
   render() {

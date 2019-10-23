@@ -59,7 +59,6 @@ class App extends React.Component {
     console.log(
       'TEST : componentWillUnmount() in App.js, after unsubscribeFromAuth'
     );
-    alert('TEST : componentWillUnmount() in App.js, after unsubscribeFromAuth');
   }
 
   render() {
