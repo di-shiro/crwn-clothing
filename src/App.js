@@ -26,7 +26,9 @@ class App extends React.Component {
     console.log('TEST : componentDidMount() in App.js');
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      console.log('TEST : componentDidMount() in App.js: async userAuth => {}');
+      console.log(
+        'TEST : componentDidMount() in App.js: START: async userAuth => {}'
+      );
 
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
@@ -50,7 +52,7 @@ class App extends React.Component {
       }
     });
     console.log(
-      'TEST : componentDidMount() in App.js: END:async userAuth => {}'
+      'TEST : componentDidMount() in App.js: END: async userAuth => {}'
     );
   }
 

@@ -19,18 +19,18 @@ export const fetchCollectionsFailure = errorMessage => ({
   payload: errorMessage
 });
 
+// ------ Redux-Thunk : Asyncronous Firestore data fetching ------
+// Firestoreから、以下の collectionRef を取得するために
+// 非同期通信( Promise )をしている.  collectionRef.get().then(_RESOLVE_).catch(_ERROR_)
 export const fetchCollectionsStartAsync = () => {
   return dispatch => {
     const collectionRef = firestore.collection('collections');
     dispatch(fetchCollectionsStart());
 
-    // Firestoreから、以下の collectionRef を取得するために
-    // 非同期通信( Promise )をしている.  collectionRef.get().then(_RESOLVE_).catch(_ERROR_)
     collectionRef
       .get()
       .then(snapshot => {
         const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-        // updateCollections(collectionsMap); // sec17: shop.component , componentDidMount
         dispatch(fetchCollectionsSuccess(collectionsMap));
       })
       .catch(error => dispatch(fetchCollectionsFailure(error.message)));
