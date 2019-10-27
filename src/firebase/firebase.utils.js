@@ -67,9 +67,7 @@ export const convertCollectionsSnapshotToMap = collections => {
     };
   });
 
-  // QuerySnapshotとして取得した直後なので、未だArray型のまま。 Object型への変換との比較のために残している。
-  console.log('</> sec17-lec162. WithSpinner HOC 2 : ', transformedCollection);
-
+  // QuerySnapshotとして取得した直後なので、未だArray型のまま。それを Object型へと変換して return する。
   return transformedCollection.reduce((accumulator, collection) => {
     accumulator[collection.title.toLowerCase()] = collection;
     return accumulator;
@@ -81,8 +79,8 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' });
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;

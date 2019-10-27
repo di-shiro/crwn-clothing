@@ -25,32 +25,32 @@ class App extends React.Component {
 
     console.log('TEST : componentDidMount() in App.js');
 
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      console.log(
-        'TEST : componentDidMount() in App.js: START: async userAuth => {}'
-      );
+    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    //   console.log(
+    //     'TEST : componentDidMount() in App.js: START: async userAuth => {}'
+    //   );
 
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth);
 
-        userRef.onSnapshot(snapShot => {
-          // 以下、本来は this.props.setCurrentUser だったが、これから this.props を取り除いた形にした。
-          setCurrentUser(
-            {
-              id: snapShot.id,
-              ...snapShot.data()
-            },
-            () => {
-              console.log('async 2nd param : ', this.prop);
-            }
-          );
-          console.log(this.prop);
-        });
-      } else {
-        // this.setState({ currentUser: userAuth });
-        setCurrentUser(userAuth);
-      }
-    });
+    //     userRef.onSnapshot(snapShot => {
+    //       // 以下、本来は this.props.setCurrentUser だったが、これから this.props を取り除いた形にした。
+    //       setCurrentUser(
+    //         {
+    //           id: snapShot.id,
+    //           ...snapShot.data()
+    //         },
+    //         () => {
+    //           console.log('async 2nd param : ', this.prop);
+    //         }
+    //       );
+    //       console.log(this.prop);
+    //     });
+    //   } else {
+    //     // this.setState({ currentUser: userAuth });
+    //     setCurrentUser(userAuth);
+    //   }
+    // });
     console.log(
       'TEST : componentDidMount() in App.js: END: async userAuth => {}'
     );
@@ -58,9 +58,6 @@ class App extends React.Component {
 
   componentWillUnmount() {
     this.unsubscribeFromAuth();
-    console.log(
-      'TEST : componentWillUnmount() in App.js, after unsubscribeFromAuth'
-    );
   }
 
   render() {
