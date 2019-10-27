@@ -2,12 +2,7 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 
 import UserActionTypes from './user.types';
 
-import {
-  googleSignInSuccess,
-  googleSignInFailure,
-  emailSignInSuccess,
-  emailSignInFailure
-} from './user.actions';
+import { signInSuccess, signInFailure } from './user.actions';
 
 import {
   auth,
@@ -15,26 +10,27 @@ import {
   createUserProfileDocument
 } from '../../firebase/firebase.utils';
 
+export function* getSnapshotFromUserAuth(userAuth) {
+  try {
+    console.log('( 1 )');
+    const userRef = yield call(createUserProfileDocument, userAuth);
+    console.log('( 2 )');
+    const userSnapshot = yield userRef.get();
+    console.log('( 3 )');
+    yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+    console.log('<?> ( 4 )  -> ', userRef);
+  } catch (error) {
+    yield put(signInFailure(error));
+  }
+}
+
 export function* signInWithGoogle() {
   try {
     console.log('( 0 )');
-
     const { user } = yield auth.signInWithPopup(googleProvider);
-    console.log('( 1 )');
-
-    const userRef = yield call(createUserProfileDocument, user);
-    console.log('( 2 )');
-
-    const userSnapshot = yield userRef.get();
-    console.log('( 3 )');
-
-    yield put(
-      googleSignInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
-    );
-
-    console.log('<?> ( 4 )  -> ', userRef);
+    yield getSnapshotFromUserAuth(user);
   } catch (error) {
-    put(googleSignInFailure(error));
+    yield put(signInFailure(error));
   }
 }
 
@@ -47,12 +43,10 @@ export function* signInWithEmail({ payload: { email, password } }) {
     console.log('<?> emailSignInStart -- user.sagas.js', email, password);
 
     const { user } = yield auth.signInWithEmailAndPassword(email, password);
-    const userRef = yield call(createUserProfileDocument, user);
-    const userSnapshot = yield userRef.get();
-    yield put(
-      emailSignInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
-    );
-  } catch (error) {}
+    yield getSnapshotFromUserAuth(user);
+  } catch (error) {
+    yield put(signInFailure(error));
+  }
 }
 
 export function* onEmailSignInStart() {
