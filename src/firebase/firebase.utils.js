@@ -74,7 +74,16 @@ export const convertCollectionsSnapshotToMap = collections => {
   }, {});
 };
 
-firebase.initializeApp(config);
+firebase.initializeApp(config); // ここではなく、もっと上に記載すべきかもしれない！
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+};
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
