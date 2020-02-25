@@ -21,6 +21,7 @@ import {
 export function* getSnapshotFromUserAuth(userAuth, additionalData) {
   try {
     console.warn('( 1 ) --> userAuth : ', userAuth);
+    console.log(' user.saga内部で、user login の非同期処理を開始');
     const userRef = yield call(
       createUserProfileDocument,
       userAuth,
@@ -29,6 +30,9 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
     console.warn('( 2 ) --> userRef : ', userRef);
     const userSnapshot = yield userRef.get();
     console.warn('( 3 ) --> userSnapshot : ', userSnapshot);
+    console.log(
+      ' 🟪 use.saga内部から reduser へ signInSuccess()アクション を送信'
+    );
     yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
     console.warn('( 4 ) <?>  --> userSnapshot : ', userSnapshot);
   } catch (error) {
